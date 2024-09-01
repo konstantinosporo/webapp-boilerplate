@@ -1,25 +1,24 @@
-import {
-  Archive,
-  ProfileCircle,
-  SelectFace3d,
-  
-} from "iconoir-react";
+
 // profile menu component
 const LINKS = [
   {
-    icon: ProfileCircle,
-    title: "Account",
-    href: "#",
+    
+    title: "My profile",
+    href: "/dashboard/my-profile",
+    current: true,
   },
   {
-    icon: SelectFace3d,
-    title: "Blocks",
-    href: "#",
+    
+    title: "News",
+    href: "/dashboard/news",
+    current: false,
+    
   },
   {
-    icon: Archive,
-    title: "Docs",
-    href: "#",
+    
+    title: "Info",
+    href: "/dashboard/info",
+    current: false,
   },
 ];
 

@@ -1,10 +1,17 @@
-import { ComplexNavbar } from "../ui/NavBar";
+import { getServerSession } from "next-auth";
+import MyNavBar from "../ui/NavBar";
 
-export default function Dashboard({ children }: Readonly<{ children: React.ReactNode }>) {
+
+
+export default async function Dashboard({ children }: Readonly<{ children: React.ReactNode }>) {
+  const session = await getServerSession();
+
   return (
-    <div>
-      <ComplexNavbar />
-      {children}
+    <div className="">
+      <MyNavBar user={session?.user} />
+      <div className="">{children}</div>
     </div>
   )
 }
+
+

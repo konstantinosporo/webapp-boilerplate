@@ -1,5 +1,10 @@
-"use client";
 
-import { Button } from "@material-tailwind/react";
+import { Button } from "@/components/ui/button"
 
-export { Button };
+export default function MyButton({ params }: Readonly<{ params: string }>) {
+  return (
+    <div>
+      <Button type="submit">{params}</Button>
+    </div>
+  )
+}

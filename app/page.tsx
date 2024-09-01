@@ -27,7 +27,10 @@ export default async function Home() {
         <h1 className="text-sm text-teal-200">This is the global home page! It should be accessed by every kind of user!</h1>
         <h2>Welcome {session.user?.name}</h2>
         {isImage}
-      </main>
+        <Link href={'/api/auth/signout'}>
+          <p className="bg-red-700 text-white hover:text-red-700 hover:bg-white">Logout</p>
+        </Link>
+      </main >
     );
   } else return <Link href={'/signup'}>Not a member? Sign In</Link>
 
