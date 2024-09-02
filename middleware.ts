@@ -1,12 +1,11 @@
-// this line enables middleware checking in all routes adjust with matchers to enable in custom pages
- 
+// next-auth middleware
 export { default } from 'next-auth/middleware';
 
 export const config = {
   matcher: [
-    // Apply middleware to all routes except /signup
-    '/((?!signup).*)',
-    // Add other routes if needed, e.g., '/protected-route'
+    // Apply middleware to all routes except /login, /signup, and the home page /
+    '/((?!login|signup|).*)',
+    // Explicitly include routes that need protection
     '/dashboard/:path*',
     '/profile/:path*',
   ],

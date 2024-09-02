@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent } from "react";
-import MyButton from "../ui/Button";
+import { MyButton } from "../components/ui/Button";
 import Link from "next/link";
 
 export default function SignUpForm() {

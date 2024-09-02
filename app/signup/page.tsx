@@ -1,6 +1,6 @@
-import SignUpForm from './Form';
+import SignUpForm from "./Form"
 
-const SignUpPage = async () => {
+const SignUpPage =  () => {
 
   return (
     <>

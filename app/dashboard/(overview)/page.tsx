@@ -1,5 +1,5 @@
-import MyButton from "@/app/ui/Button";
-import MyCarousel from "@/app/ui/Carousel";
+import { MyButton } from "@/app/components/ui/Button";
+import MyCarousel from "@/app/components/ui/Carousel";
 
 const DashboardPage = async () => {
 

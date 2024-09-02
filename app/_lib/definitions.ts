@@ -5,6 +5,7 @@ type User = {
   image?: string | null;
 } | undefined;
 
-type ComplexNavbarProps = {
+type MyNavBarProps = {
   user?: User;
 };
+
