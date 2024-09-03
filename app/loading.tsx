@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import React from 'react'
 
-const Loading = () => {
+
+const Loading = async () => {
   return (
     <div>
       <Skeleton />

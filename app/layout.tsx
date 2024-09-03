@@ -4,6 +4,8 @@ import "./globals.css";
 // next
 import { getServerSession } from "next-auth";
 import MyNavBar from "./components/ui/NavBar";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 
 export const metadata: Metadata = {
@@ -20,8 +22,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} antialiased`}>
-        <MyNavBar user={session?.user} />
-        {children}
+        <Suspense fallback={<Loading />}>
+          <MyNavBar user={session?.user} />
+          {children}
+        </Suspense>
       </body>
     </html>
   );
