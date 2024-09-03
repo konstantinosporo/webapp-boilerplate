@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import MyNavBar from "./components/ui/NavBar";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { SwitchTheme } from "./components/ui/SwitchTheme";
 
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default async function RootLayout({
           <MyNavBar user={session?.user} />
           {children}
         </Suspense>
+        <SwitchTheme />
       </body>
     </html>
   );
