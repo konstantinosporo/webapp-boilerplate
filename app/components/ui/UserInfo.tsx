@@ -1,28 +1,30 @@
-import { UserIcon } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
+import { FaUserCheck } from "react-icons/fa";
+import { FaUserXmark } from "react-icons/fa6";
+import clsx from "clsx";
 
 const UserInfo = ({ user }: Readonly<MyNavBarProps>) => {
   return (
-    <div className="gap-1 hidden md:flex">
-      <button
-        type="button"
-        className={clsx(
-          "relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white outline outline-1",
-          user ? "outline-green-400" : "outline-red-400"
-        )}
-      >
-        <span className="absolute -inset-1.5" />
-        <span className="sr-only">View notifications</span>
-        <UserIcon
-          aria-hidden="true"
-          className={clsx("h-2 w-2", user ? "text-green-400" : "text-red-400")}
-        />
-      </button>
+    <div className="gap-2 hidden md:flex items-center">
+      {user
+        ? (
+          <FaUserCheck
+            aria-hidden="true"
+            className="h-3 w-3 mb-[.9px] rounded-full text-green-400 outline outline-1 outline-offset-1 outline-green-400"
+          />
+        )
+        : (
+          <FaUserXmark
+            aria-hidden="true"
+            className="h-3 w-3 mb-[.9px] rounded-full text-red-400 outline outline-1 outline-offset-1 outline-red-400"
+          />
+        )
+      }
+
       <span>
-        <p className='dark:text-slate-200 text-xs'>{user?.name}</p>
+        <p className="dark:text-slate-200 text-xs">{user?user?.name:'Signed out'}</p>
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default UserInfo
+export default UserInfo;

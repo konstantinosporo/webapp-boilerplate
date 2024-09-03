@@ -21,7 +21,7 @@ const providerIcons: Record<string, { icon: JSX.Element, bgColor: string }> = {
     icon: <FaFacebook />,
     bgColor: 'bg-blue-600',
   },
-  // add more providers if needed (icons and bg colours)
+  // add more providers if needed (icons and bg colors)
 };
 
 const SignInForm = () => {
@@ -93,75 +93,67 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-opacity-95">
-
+    <div className="flex flex-col items-center justify-center bg-white p-10 rounded-lg shadow-lg w-96">
       <SignInHeader />
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-80">
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 mb-2 text-xs">Email:</label>
+      <form onSubmit={handleSubmit} className="w-full">
+        <div className="mb-5">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            Email:
+          </label>
           <input
             type="text"
             name="email"
-            className="w-full px-3 py-1 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm"
           />
         </div>
 
-        <div className="mb-6">
-          <label htmlFor="password" className="block text-gray-700 mb-2 text-xs">Password:</label>
+        <div className="mb-5">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            Password:
+          </label>
           <input
             type="password"
             name="password"
-            className="w-full px-3 py-1 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm"
           />
         </div>
 
-        <div className="flex justify-around">
+        <div className="flex justify-between mb-6">
           {loading ? (
             <ButtonLoading />
           ) : (
             <MyButton params="Login" />
           )}
 
-          <Link
-            href={'/signup'}>
-            <MyButton params='or Sign up' />
+          <Link href="/signup" className="inline-block text-blue-500 hover:underline text-sm">
+            or Sign up
           </Link>
         </div>
 
+        {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
 
-
-        {error && <p className="text-red-500">{error}</p>}
-
-        <div className="mt-4 text-center text-gray-600">
-          <p className='text-tiny'>Or Sign in with:</p>
-          <div className="mt-2 flex justify-around">
+        <div className="text-center text-gray-600 text-sm">
+          <p className="mb-4">Or sign in with:</p>
+          <div className="flex justify-around">
             {loading ? (
-              // Skeleton Loader
               Array.from({ length: 3 }).map((_, index) => (
                 <div key={index} className="w-12 h-12 rounded-full bg-gray-200 animate-pulse"></div>
               ))
             ) : (
-              // Provider Buttons
               providers && Object.values(providers).map((provider) => (
                 provider.id !== 'credentials' && (
-
-                  loading ? (
-                    <ButtonLoading />
-                  ) : (
-                    <button
-                      key={provider.name}
-                      type="button"
-                      onClick={() => handleProviderLogin(provider.id)}
-                      className={`flex items-center justify-center w-12 h-12 rounded-full text-white ${providerIcons[provider.id]?.bgColor}`}
-                    >
-                      {providerIcons[provider.id]?.icon}
-                    </button>
-                  )
+                  <button
+                    key={provider.name}
+                    type="button"
+                    onClick={() => handleProviderLogin(provider.id)}
+                    className={`flex items-center justify-center w-12 h-12 rounded-full text-white ${providerIcons[provider.id]?.bgColor}`}
+                  >
+                    {providerIcons[provider.id]?.icon}
+                  </button>
                 )
               ))
             )}
-            {error && <p className="text-red-500">{error}</p>}
           </div>
         </div>
       </form>

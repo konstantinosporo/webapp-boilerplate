@@ -4,11 +4,14 @@ import "./globals.css";
 // next
 import { getServerSession } from "next-auth";
 import MyNavBar from "./components/ui/NavBar";
-
+import { Suspense } from "react";
+import Loading from "./loading";
+import { SwitchTheme } from "./components/ui/SwitchTheme";
 
 export const metadata: Metadata = {
   title: "Web Application - Boiler",
-  description: "This is my custom Next js fullstack boilerplate with next auth implementation for sessions handling. ",
+  description:
+    "This is my custom Next js fullstack boilerplate with next auth implementation for sessions handling.",
 };
 
 export default async function RootLayout({
@@ -18,14 +21,18 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession();
   return (
-    <html lang="en" className="dark">
+    <html lang="en" >
       <body className={`${inter.className} antialiased`}>
-        <MyNavBar user={session?.user} />
-        {children}
+        <Suspense fallback={<Loading />}>
+          <MyNavBar user={session?.user} />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            {children}
+          </div>
+          <div className="fixed bottom-4 right-4">
+            <SwitchTheme />
+          </div>
+        </Suspense>
       </body>
     </html>
   );
 }
-
-
-

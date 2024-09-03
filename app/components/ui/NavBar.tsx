@@ -9,6 +9,10 @@ import { navLinksUser, navLinksGlobal, navLinksDropdown } from '../links/navlink
 import LogoImage from './LogoImage';
 import ProfileImage from './ProfileImage';
 import UserInfo from './UserInfo';
+// icons 
+import { MdAlternateEmail } from "react-icons/md";
+import { MdOutlineAttachEmail } from "react-icons/md";
+
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -20,7 +24,7 @@ export default function MyNavBar({ user }: Readonly<MyNavBarProps>) {
   const links = user ? navLinksUser : navLinksGlobal;
 
   return (
-    <Disclosure as="nav" className="dark:bg-gray-800">
+    <Disclosure as="nav" className="dark:bg-gray-800 border-b-[.1px] shadow-sm">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -36,6 +40,7 @@ export default function MyNavBar({ user }: Readonly<MyNavBarProps>) {
             <div className="flex flex-shrink-0 items-center">
               <LogoImage />
             </div>
+            
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {links.map((item) => (
@@ -47,7 +52,10 @@ export default function MyNavBar({ user }: Readonly<MyNavBarProps>) {
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
-                    <p className="text-xs">{item.title}</p>
+                    <div className="flex items-center gap-1">
+                      {item.title === 'Contact' ? <MdOutlineAttachEmail className='mt-[.5px]' /> : null}
+                      <p className="text-xs">{item.title}</p>
+                    </div>
                   </Link>
                 ))}
               </div>
