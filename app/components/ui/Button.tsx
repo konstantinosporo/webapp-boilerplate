@@ -20,6 +20,14 @@ export function ButtonLoading() {
   )
 }
 
+export function SuccessButton({ params }: Readonly<{ params: string }>) {
+  return (
+    <Button disabled className="bg-lime-400  w-full">
+      {params}
+    </Button>
+  )
+}
+
 
 
 

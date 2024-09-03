@@ -20,6 +20,13 @@ const navLinksUser = [
     href: "/dashboard/info",
     current: false,
   },
+  {
+    
+    title: "Contact",
+    href: "/dashboard/sendEmail",
+    current: false,
+    
+  },
 ];
 
 const navLinksDropdown = [
