@@ -9,3 +9,15 @@ type MyNavBarProps = {
   user?: User;
 };
 
+type ModelUser = {
+  id: string;
+  email: string;
+  name: string;
+}
+
+type ModelCustomer = {
+  id: string;
+  email: string;
+  name: string;
+  image_url: string;
+}

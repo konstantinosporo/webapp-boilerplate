@@ -65,7 +65,7 @@ export default function SignUpForm() {
       </form>
 
       <Link
-        href={'/signin'}>
+        href={'/login'}>
         Sign In
       </Link>
     </div>
