@@ -1,57 +1,40 @@
-'use client'; // This ensures the component is client-side only
-import { useState, useEffect } from "react";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { toggleTheme } from "../hooks/toggleTheme"; // Ensure this path is correct
+"use client"
 
-export function SwitchTheme() {
-  // State to track if the component is mounted (to prevent SSR issues)
-  const [isMounted, setIsMounted] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+import * as React from "react"
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
+import { useTheme } from "next-themes"
 
-  useEffect(() => {
-    // Set the component as mounted
-    setIsMounted(true);
-    // Get the saved theme from local storage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-      // Apply the saved theme
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    }
-  }, []);
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-  useEffect(() => {
-    if (isMounted) {
-      // Apply the theme whenever it changes
-      if (isDarkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      // Save the theme to local storage
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    }
-  }, [isDarkMode, isMounted]);
-
-  const handleToggle = () => {
-    setIsDarkMode(prevMode => !prevMode);
-    toggleTheme(); // Assuming this function handles additional theme logic
-  };
-
-  if (!isMounted) {
-    // Avoid rendering the switch until the component is mounted to prevent SSR issues
-    return null;
-  }
+export function ModeToggle() {
+  const { setTheme } = useTheme()
 
   return (
-    <div className="fixed bottom-4 left-4 flex items-center space-x-2 z-50">
-      <Switch
-        id="theme-toggle"
-        checked={isDarkMode}
-        onCheckedChange={handleToggle}
-      />
-      <Label htmlFor="theme-toggle" className="text-xs">{isDarkMode ? 'Light' : 'Dark'}</Label>
-    </div>
-  );
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
 }

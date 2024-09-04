@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "./components/hooks/theme-provider";
 import { inter } from "./components/ui/font";
+import { ModeToggle } from "./components/ui/SwitchTheme";
 import "./globals.css";
-// next
-import { getServerSession } from "next-auth";
-import MyNavBar from "./components/ui/NavBar";
-import { Suspense } from "react";
-import Loading from "./loading";
-import { SwitchTheme } from "./components/ui/SwitchTheme";
 
 export const metadata: Metadata = {
   title: "Web Application - Boiler",
@@ -14,24 +10,30 @@ export const metadata: Metadata = {
     "This is my custom Next js fullstack boilerplate with next auth implementation for sessions handling.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
   return (
-    <html lang="en" >
+    <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <Suspense fallback={<Loading />}>
-          <MyNavBar user={session?.user} />
+        {/* SwitchTheme from ShadCN*/}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             {children}
           </div>
-          <div className="fixed bottom-4 right-4">
-            <SwitchTheme />
+
+          <div className="fixed bottom-4 left-4">
+            <ModeToggle />
           </div>
-        </Suspense>
+
+        </ThemeProvider>
       </body>
     </html>
   );

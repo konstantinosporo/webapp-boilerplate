@@ -1,12 +1,12 @@
-
 import { getServerSession } from "next-auth";
-import { options } from "./api/auth/[...nextauth]/options";
 import Link from "next/link";
 import Image from "next/image";
+import MyNavBar from "./components/ui/NavBar";
+import NewNavbar from "./components/ui/NewNavbar";
 
 
 export default async function Home() {
-  const session = await getServerSession(options);
+  const session = await getServerSession();
   const user = session?.user;
 
   const isImage = user?.image ? (
@@ -24,6 +24,7 @@ export default async function Home() {
   if (session) {
     return (
       <main>
+        <NewNavbar />
         <h1 className="text-sm text-teal-200">This is the global home page! It should be accessed by every kind of user!</h1>
         <h2>Welcome {session.user?.name}</h2>
         {isImage}
