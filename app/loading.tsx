@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
 
-const Loading = async () => {
+const Loading = () => {
   return (
     <div>
       <Skeleton />

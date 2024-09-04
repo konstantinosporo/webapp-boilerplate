@@ -84,12 +84,6 @@ const navLinksGlobal = [
     href: "#",
     current: false,
   },
-  {
-    
-    title: "Sign in",
-    href: "/login",
-    current: false,
-  },
 ]
 
 export { navLinksUser, navLinksGlobal, navLinksDropdown };

@@ -22,7 +22,7 @@ export function ButtonLoading() {
 
 export function SuccessButton({ params }: Readonly<{ params: string }>) {
   return (
-    <Button disabled className="bg-lime-400  w-full">
+    <Button disabled className="bg-stone-100 text-lime-700  w-full">
       {params}
     </Button>
   )

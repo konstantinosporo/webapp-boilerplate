@@ -1,3 +1,4 @@
+'use client'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,29 +13,54 @@ import LogoImage from "./LogoImage";
 import { nanoid } from "nanoid";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { FaPowerOff } from "react-icons/fa6";
+import { IoMdLogIn } from "react-icons/io";
+
+import { navLinksUser } from "../links/navlinks";
+
+import { useSession } from "next-auth/react";
+import clsx from "clsx";
 
 const NewNavbar = () => {
+  const { data: session, status } = useSession();
+  const user: User | undefined = session?.user;
+  const dynamicBtn = (
+    user ? (
+      <Link href='/api/auth/signout'>
+        <Button variant="secondary" className="hidden md:block px-2 bg-red-500">
+          Logout
+        </Button>
+      </Link>
+    ) : (
+      <Link href='/login'>
+        <Button variant="secondary" className="hidden md:block px-2">
+          Login
+        </Button>
+      </Link>
+    )
+  );
+
+
   return (
-    <Card className="container bg-card py-3 px-4 border-0 flex items-center justify-between gap-6 rounded-2xl mt-5">
+    <Card className="container bg-card py-3 px-4 border-0 flex items-center justify-between gap-6 rounded-2xl mt-3 mb-14">
       <LogoImage />
 
       <ul className="hidden md:flex items-center gap-10 text-card-foreground">
-        <li className="text-primary font-medium">
-          <a href="#home">Home</a>
-        </li>
-        <li>
-          <a href="#features">Features</a>
-        </li>
-        <li>
-          <a href="#pricing">Pricing</a>
-        </li>
-        <li>
-          <a href="#faqs">FAQs</a>
-        </li>
-        <li>
+        {
+          navLinksUser.map((item) => {
+            return (
+              <li className="text-primary font-medium hover:bg-gray-50 rounded-md p-1 px-3" key={item.title}>
+                <Link href={item.href}>
+                  {item.title}
+                </Link>
+              </li>
+            )
+          })
+        }
+        {/* <li>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <span className="cursor-pointer">Pages</span>
+              <span className="cursor-pointer">Dropdown</span>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="start">
@@ -45,17 +71,33 @@ const NewNavbar = () => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-        </li>
+        </li> */}
       </ul>
 
       <div className="flex items-center gap-1">
-        <Button variant="secondary" className="hidden md:block px-2 bg-lime-600 dark:bg-lime-400">
-          Login
-        </Button>
+        <Link href={user ? '/api/auth/signout' : '/login'}>
+          <Button
+
+            className={clsx(
+              "items-center gap-2 px-2 hidden lg:flex ml-2 mr-2",
+              user ? "bg-red-500" : "bg-blue-500",
+              "dark:bg-red-700 text-white"
+            )}
+          >
+            {user ? (
+              <FaPowerOff className="text-white" />
+            ) : (
+              <IoMdLogIn className="text-white" />
+            )}
+            <span className="hidden md:inline">
+              {user ? "Logout" : "Login"}
+            </span>
+          </Button>
+        </Link>
         <Button className="hidden md:block ml-2 mr-2">Get Started</Button>
 
         <div className="flex md:hidden mr-2 items-center gap-2">
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <span className="py-2 px-2 bg-gray-100 rounded-md">Pages</span>
             </DropdownMenuTrigger>
@@ -67,7 +109,7 @@ const NewNavbar = () => {
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -78,21 +120,30 @@ const NewNavbar = () => {
 
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
-                <a href="#home">Home</a>
+                <Link href="#home">Home</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <a href="#features">Features</a>
+                <Link href="#features">Features</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <a href="#pricing">Pricing</a>
+                <Link href="#pricing">Pricing</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <a href="#faqs">FAQs</a>
+                <Link href="#faqs">FAQs</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Button className="w-full text-sm bg-lime-400">
-                  Login
-                </Button>
+                <Link href={user ? '/api/auth/signout' : '/login'}>
+                  <Button
+                    variant="secondary"
+                    className={clsx(
+                      "hidden md:block px-2",
+                      user ? "bg-red-500" : "",
+                      "dark:bg-red-700" // Optional: add a dark theme variant
+                    )}
+                  >
+                    {user ? "Logout" : "Login"}
+                  </Button>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Button className="w-full text-sm">Get Started</Button>
@@ -103,7 +154,7 @@ const NewNavbar = () => {
 
         <ModeToggle />
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png"  sizes="120px"/>
+          <AvatarImage src={user?.image ?? '/next.svg'} sizes="120px" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>

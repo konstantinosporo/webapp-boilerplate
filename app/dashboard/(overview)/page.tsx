@@ -1,7 +1,7 @@
 import { MyButton } from "@/app/components/ui/Button";
 import MyCarousel from "@/app/components/ui/Carousel";
 
-const DashboardPage = async () => {
+const DashboardPage =  () => {
 
   return (
     <div>

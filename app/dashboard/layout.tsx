@@ -1,17 +1,13 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { Suspense } from "react"
+import NewNavbar from "../components/ui/NewNavbar";
+import AuthProvider from "../context/AuthProvider";
 
-export default async function Dashboard({ children }: Readonly<{ children: React.ReactNode }>) {
-
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="">
-      <Suspense fallback={<Skeleton />}>
-        <div className="">
-          {children}
-        </div>
-      </Suspense>
-    </div >
-  )
+    <AuthProvider>
+      <main>
+        <NewNavbar />
+        {children}
+      </main>
+    </AuthProvider>
+  );
 }
-
-

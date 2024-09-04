@@ -7,6 +7,7 @@ const SendMailForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const dynamicBtn = success ? <SuccessButton params='Email received. Thank you for contacting us!' /> : <MyButton params='Send Email' />;
 
   const handleEmailSend = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,12 +58,12 @@ const SendMailForm = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen mt-[-180px]" >
+    <div className="flex justify-center items-center " >
       <form
         onSubmit={handleEmailSend}
-        className="bg-slate-50 dark:bg-slate-800 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6"
+        className="p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6"
       >
-        <h2 className="text-2xl font-bold text-lime-400 mb-4">Contact us</h2>
+        <h2 className="text-2xl font-bold text-lime-700 mb-4 opacity-95">Contact us</h2>
         <p className='text-xs text-slate-600 '>Please fill in the form with valid data.</p>
 
         <div className="space-y-4">
@@ -104,7 +105,7 @@ const SendMailForm = () => {
           {isLoading ? (
             <ButtonLoading />
           ) : (
-            success ? <SuccessButton params='Email received. Thank you for contacting us!' /> : <MyButton params='Send Email' />
+            dynamicBtn
           )}
         </div>
       </form>
