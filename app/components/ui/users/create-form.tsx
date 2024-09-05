@@ -153,7 +153,7 @@ export default function Form({ customers }: Readonly<{ customers: CustomerField[
 
         <div aria-live="polite" aria-atomic="true">
           {message ? (
-            <p className="mt-2 text-sm text-red-500">{message}</p>
+            <p className="mt-2 text-sm text-green-500">{message}</p>
           ) : null}
         </div>
       </div>
