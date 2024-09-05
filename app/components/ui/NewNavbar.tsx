@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,105 +12,39 @@ import { Button } from "@/components/ui/button";
 import LogoImage from "./LogoImage";
 import { nanoid } from "nanoid";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaPowerOff } from "react-icons/fa6";
 import { IoMdLogIn } from "react-icons/io";
 
 import { navLinksUser } from "../links/navlinks";
-
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
 const NewNavbar = () => {
   const { data: session, status } = useSession();
-  const user: User | undefined = session?.user;
-  const dynamicBtn = (
-    user ? (
-      <Link href='/api/auth/signout'>
-        <Button variant="secondary" className="hidden md:block px-2 bg-red-500">
-          Logout
-        </Button>
-      </Link>
-    ) : (
-      <Link href='/login'>
-        <Button variant="secondary" className="hidden md:block px-2">
-          Login
-        </Button>
-      </Link>
-    )
-  );
-
+  const user = session?.user;
 
   return (
-    <Card className="container bg-card py-3 px-4 border-0 flex items-center justify-between gap-6 rounded-2xl mt-3 mb-14">
+    <Card className="py-2 border-0 flex items-center justify-between gap-3  mt-3 mb-14 fixed top-0 w-full bg-white/30 backdrop-blur-lg border-b border-white/20 text-foreground shadow-md z-50 md:container md:mx-auto md:rounded-2xl md:px-4 px-2">
+
       <LogoImage />
 
-      <ul className="hidden md:flex items-center gap-10 text-card-foreground">
-        {
-          navLinksUser.map((item) => {
-            return (
-              <li className="text-primary font-medium hover:bg-gray-50 rounded-md p-1 px-3" key={item.title}>
-                <Link href={item.href}>
-                  {item.title}
-                </Link>
-              </li>
-            )
-          })
-        }
-        {/* <li>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <span className="cursor-pointer">Dropdown</span>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align="start">
-              {landings.map((page) => (
-                <DropdownMenuItem key={page.id}>
-                  <Link href={page.route}>{page.title}</Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </li> */}
+      <ul className="hidden md:flex items-center gap-6">
+        {navLinksUser.map((item) => (
+          <li className="font-medium" key={item.title}>
+            <Link href={item.href}>
+              <Button className="bg-transparent">
+                {item.title}
+              </Button>
+            </Link>
+          </li>
+        ))}
       </ul>
 
       <div className="flex items-center gap-1">
-        <Link href={user ? '/api/auth/signout' : '/login'}>
-          <Button
-
-            className={clsx(
-              "items-center gap-2 px-2 hidden lg:flex ml-2 mr-2",
-              user ? "bg-red-500" : "bg-blue-500",
-              "dark:bg-red-700 text-white"
-            )}
-          >
-            {user ? (
-              <FaPowerOff className="text-white" />
-            ) : (
-              <IoMdLogIn className="text-white" />
-            )}
-            <span className="hidden md:inline">
-              {user ? "Logout" : "Login"}
-            </span>
-          </Button>
-        </Link>
         <Button className="hidden md:block ml-2 mr-2">Get Started</Button>
 
         <div className="flex md:hidden mr-2 items-center gap-2">
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <span className="py-2 px-2 bg-gray-100 rounded-md">Pages</span>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align="start">
-              {landings.map((page) => (
-                <DropdownMenuItem key={page.id}>
-                  <Link href={page.route}>{page.title}</Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu> */}
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
@@ -131,32 +65,47 @@ const NewNavbar = () => {
               <DropdownMenuItem>
                 <Link href="#faqs">FAQs</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href={user ? '/api/auth/signout' : '/login'}>
-                  <Button
-                    variant="secondary"
-                    className={clsx(
-                      "hidden md:block px-2",
-                      user ? "bg-red-500" : "",
-                      "dark:bg-red-700" // Optional: add a dark theme variant
-                    )}
-                  >
-                    {user ? "Logout" : "Login"}
-                  </Button>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Button className="w-full text-sm">Get Started</Button>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
         <ModeToggle />
-        <Avatar>
-          <AvatarImage src={user?.image ?? '/next.svg'} sizes="120px" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar className="cursor-pointer">
+              <AvatarImage src={user?.image ?? '/next.svg'} sizes="120px" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <Link href={user ? '/api/auth/signout' : '/login'}>
+                <Button
+                  variant="secondary"
+                  className={clsx(
+                    "w-full px-4 py-2",
+                    user ? "bg-red-500 text-white group" : "text-black",
+                    "dark:bg-red-700"
+                  )}
+                >
+                  {user ? (
+                    <>
+                      <FaPowerOff className="mr-2 group-hover:animate-pulse" />
+                      Logout
+                    </>
+                  ) : (
+                    <>
+                      <IoMdLogIn className="mr-2 group-hover:animate-pulse" />
+                      Login
+                    </>
+                  )}
+                </Button>
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </Card>
   );

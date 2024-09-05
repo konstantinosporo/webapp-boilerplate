@@ -119,7 +119,7 @@ const SignInForm = () => {
           />
         </div>
 
-        <div className="flex justify-between mb-6">
+        <div className="flex justify-between mb-6 items-center">
           {loading ? (
             <ButtonLoading />
           ) : (

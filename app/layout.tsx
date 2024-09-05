@@ -25,14 +25,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto">
             {children}
           </div>
-
-          <div className="fixed bottom-4 left-4">
-            <ModeToggle />
-          </div>
-
         </ThemeProvider>
       </body>
     </html>

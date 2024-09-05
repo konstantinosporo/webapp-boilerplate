@@ -1,21 +1,18 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+    darkMode: ["class"],
     content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@material-tailwind/react/**/*.{js,ts,jsx,tsx}",
+   "./node_modules/@material-tailwind/react/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
   	extend: {
   		fontSize: {
-				tiny: '0.7rem',
-				extratiny:'0.5rem',
-  		},
-  		backgroundImage: {
-  			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+  			tiny: '0.7rem',
+  			extratiny: '0.5rem'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -68,4 +65,5 @@ const config: Config = {
   },
   plugins: [require("tailwindcss-animate")],
 };
+
 export default config;

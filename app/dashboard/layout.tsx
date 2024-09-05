@@ -4,8 +4,10 @@ import AuthProvider from "../context/AuthProvider";
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <AuthProvider>
-      <main>
+      <header>
         <NewNavbar />
+      </header>
+      <main className="container">
         {children}
       </main>
     </AuthProvider>
