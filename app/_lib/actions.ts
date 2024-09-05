@@ -25,7 +25,7 @@ export type State = {
   message?: string | null;
 };
 
-export async function createInvoice(prevState: State, formData: FormData) {
+export async function createInvoice(formData: FormData) {
 
   // // Validate form fields using Zod
   // const validatedFields = CreateInvoice.safeParse({
@@ -66,6 +66,6 @@ export async function createInvoice(prevState: State, formData: FormData) {
   }
 
   // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/dashboard/users');
-  redirect('/dashboard/users');
+  revalidatePath('/dashboard/users/create');
+  redirect('/dashboard/users/create');
 }
