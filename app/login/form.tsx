@@ -1,12 +1,13 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
-import { MyButton, ButtonLoading } from '../components/ui/Button';
-import { signIn, getProviders, LiteralUnion, ClientSafeProvider } from 'next-auth/react';
 import { BuiltInProviderType } from 'next-auth/providers/index';
-import { FaGithub, FaGoogle, FaFacebook } from "react-icons/fa";
-import SignInHeader from '../components/ui/SignInHeader';
+import { ClientSafeProvider, getProviders, LiteralUnion, signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState } from 'react';
+import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
+import { ButtonLoading, MyButton } from '../components/ui/Button';
+import SignInHeader from '../components/ui/SignInHeader';
 
 const providerIcons: Record<string, { icon: JSX.Element, bgColor: string }> = {
   google: {
@@ -28,6 +29,7 @@ const SignInForm = () => {
   const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { push } = useRouter();
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -66,7 +68,7 @@ const SignInForm = () => {
         setError(result.error);
       } else {
         // Handle successful sign-in (e.g., redirect manually)
-        window.location.href = '/dashboard'; // Redirect manually
+        push('/dashboard/');
       }
     } catch (err) {
       setError('An unexpected error occurred');

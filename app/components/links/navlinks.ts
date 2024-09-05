@@ -3,7 +3,13 @@
 const navLinksUser = [
   {
     
-    title: "My profile",
+    title: "Home",
+    href: "/dashboard/",
+    current: true,
+  },
+  {
+    
+    title: "Profile",
     href: "/dashboard/my-profile",
     current: true,
   },
@@ -13,12 +19,6 @@ const navLinksUser = [
     href: "/dashboard/news",
     current: false,
     
-  },
-  {
-    
-    title: "Info",
-    href: "/dashboard/info",
-    current: false,
   },
   {
     

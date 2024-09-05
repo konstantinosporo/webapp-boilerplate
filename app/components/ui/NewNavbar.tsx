@@ -23,6 +23,7 @@ import clsx from "clsx";
 const NewNavbar = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
+  const authenticated = status === 'authenticated';
 
   return (
     <Card className="py-2 border-0 flex items-center justify-between gap-3  mt-3 mb-14 fixed top-0 w-full bg-white/30 backdrop-blur-lg border-b border-white/20 text-foreground shadow-md z-50 md:container md:mx-auto md:rounded-2xl md:px-4 px-2">
@@ -33,7 +34,7 @@ const NewNavbar = () => {
         {navLinksUser.map((item) => (
           <li className="font-medium" key={item.title}>
             <Link href={item.href}>
-              <Button className="bg-transparent">
+              <Button className="bg-transparent shadow-none" variant='secondary'>
                 {item.title}
               </Button>
             </Link>
@@ -81,16 +82,16 @@ const NewNavbar = () => {
 
           <DropdownMenuContent align="end">
             <DropdownMenuItem>
-              <Link href={user ? '/api/auth/signout' : '/login'}>
+              <Link href={user ? '/api/auth/signout' : '/login'} className="w-full">
                 <Button
                   variant="secondary"
                   className={clsx(
                     "w-full px-4 py-2",
-                    user ? "bg-red-500 text-white group" : "text-black",
-                    "dark:bg-red-700"
+                    authenticated ? "bg-red-500 dark:bg-red-700 group" : "bg-blue-500 dark:bg-blue-600",
+
                   )}
                 >
-                  {user ? (
+                  {authenticated ? (
                     <>
                       <FaPowerOff className="mr-2 group-hover:animate-pulse" />
                       Logout

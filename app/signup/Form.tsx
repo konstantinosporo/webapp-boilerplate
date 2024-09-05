@@ -65,9 +65,9 @@ export default function SignUpForm() {
       </form>
 
       <Link
-        href={'/signin'}>
-        Sign In
+        href={'/login'}>
+        <MyButton params="Login" />
       </Link>
-    </div>
+    </div >
   )
 }
